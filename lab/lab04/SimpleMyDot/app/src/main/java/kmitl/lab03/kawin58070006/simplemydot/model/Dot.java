@@ -1,49 +1,46 @@
 package kmitl.lab03.kawin58070006.simplemydot.model;
 
-import android.graphics.Color;
-import android.graphics.Paint;
-
-import java.util.LinkedList;
+/**
+ * Created by Administrator on 18/9/2560.
+ */
 
 public class Dot {
 
     private int centerX;
     private int centerY;
     private int radius;
-    private DotChangedListener listener;
-    private Paint paint = new Paint();
+    private int color;
 
-    public Dot(int centerX, int centerY, int radius, DotChangedListener listener) {
+    public Dot(int centerX, int centerY, int radius, int color) {
         this.centerX = centerX;
         this.centerY = centerY;
         this.radius = radius;
-        this.listener = listener;
-        this.listener.onDotChanged(this);
+        this.color = color;
     }
+
+    private DotChangedListener dotChangedListener;
 
     public Dot(int centerX, int centerY, int radius) {
         this.centerX = centerX;
         this.centerY = centerY;
         this.radius = radius;
-
     }
 
-    public void setPaint(int r, int g, int b){
-        paint.setColor(Color.argb(255, r, g, b));
-    }
-
-    public Paint getPaint(){
-        return paint;
+    public Dot(int centerX, int centerY, int radius, int color, DotChangedListener dotChangedListener) {
+        this.centerX = centerX;
+        this.centerY = centerY;
+        this.radius = radius;
+        this.color = color;
+        this.dotChangedListener = dotChangedListener;
     }
 
     public interface DotChangedListener{
         void onDotChanged(Dot dot);
     }
 
-    public void setDotChangedListener(DotChangedListener listener){
-        this.listener = listener;
+    public void setDotChangedListener(DotChangedListener dotChangedListener){
+        this.dotChangedListener = dotChangedListener;
     }
-
 
     public int getCenterX() {
         return centerX;
@@ -51,7 +48,7 @@ public class Dot {
 
     public void setCenterX(int centerX) {
         this.centerX = centerX;
-        this.listener.onDotChanged(this);
+        this.dotChangedListener.onDotChanged(this);
     }
 
     public int getCenterY() {
@@ -60,7 +57,7 @@ public class Dot {
 
     public void setCenterY(int centerY) {
         this.centerY = centerY;
-        this.listener.onDotChanged(this);
+        this.dotChangedListener.onDotChanged(this);
     }
 
     public int getRadius() {
@@ -69,5 +66,13 @@ public class Dot {
 
     public void setRadius(int radius) {
         this.radius = radius;
+    }
+
+    public int getColor() {
+        return color;
+    }
+
+    public void setColor(int color) {
+        this.color = color;
     }
 }
