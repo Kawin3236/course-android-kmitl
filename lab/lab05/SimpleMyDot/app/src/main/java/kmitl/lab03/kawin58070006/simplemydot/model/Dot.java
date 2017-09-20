@@ -1,10 +1,13 @@
 package kmitl.lab03.kawin58070006.simplemydot.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by Administrator on 18/9/2560.
  */
 
-public class Dot {
+public class Dot implements Parcelable {
 
     private int centerX;
     private int centerY;
@@ -32,6 +35,16 @@ public class Dot {
         this.radius = radius;
         this.color = color;
         this.dotChangedListener = dotChangedListener;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
     }
 
     public interface DotChangedListener{

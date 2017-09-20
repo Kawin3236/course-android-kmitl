@@ -2,12 +2,10 @@ package kmitl.lab03.kawin58070006.simplemydot.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
-import android.os.Build;
 import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
+import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -19,40 +17,81 @@ import kmitl.lab03.kawin58070006.simplemydot.model.Dots;
  */
 public class DotView extends View {
     private Paint paint;
-    private Dot dot;
     private Dots allDot;
-
-
-
-
-    public DotView(Context context) {
-        super(context);
-        paint = new Paint();
-    }
-
-    public DotView(Context context, AttributeSet attrs, int defStyle){
-        super(context, attrs, defStyle);
-        paint = new Paint();
-    }
-
-    public DotView(Context context, AttributeSet attrs){
-        super(context, attrs);
-        paint = new Paint();
-    }
+    GestureDetector gestureDetector;
 
     @Override
-    protected void onDraw(Canvas canvas){
+    protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        paint.setColor(Color.RED);
-        if( this.allDot != null){
-            for (Dot dot: allDot.getAllDot()) {
+        if (this.allDot != null) {
+            for (Dot dot : allDot.getAllDot()) {
                 paint.setColor(dot.getColor());
-                canvas.drawCircle(dot.getCenterX(), dot.getCenterY(), 30, paint);
+                canvas.drawCircle(
+                        dot.getCenterX(),
+                        dot.getCenterY(), dot.getRadius(), paint);
             }
         }
     }
 
-    public void setDots(Dots dots){
+
+    public interface OnDotViewPressListener {
+        void onDotViewPressed(int x, int y);
+
+        void onDotViewLongPressed(int x, int y);
+    }
+
+    private OnDotViewPressListener onDotViewPressListener;
+
+    public void setOnDotViewPressListener(
+            OnDotViewPressListener onDotViewPressListener) {
+        this.onDotViewPressListener = onDotViewPressListener;
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return gestureDetector.onTouchEvent(event);
+    }
+
+    private void OnItemTouchListener(Context context) {
+        gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
+
+            @Override
+            public boolean onDown(MotionEvent e) {
+                return true;
+            }
+
+            @Override
+            public boolean onSingleTapUp(MotionEvent e) {
+                onDotViewPressListener.onDotViewPressed((int) e.getX(), (int) e.getY());
+                return true;
+            }
+
+            @Override
+            public void onLongPress(MotionEvent e) {
+                onDotViewPressListener.onDotViewLongPressed((int) e.getX(), (int) e.getY());
+            }
+        });
+    }
+
+    public DotView(Context context) {
+        super(context);
+        OnItemTouchListener(context);
+        paint = new Paint();
+    }
+
+    public DotView(Context context, @Nullable AttributeSet attrs) {
+        super(context, attrs);
+        OnItemTouchListener(context);
+        paint = new Paint();
+    }
+
+    public DotView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        OnItemTouchListener(context);
+        paint = new Paint();
+    }
+
+    public void setDots(Dots dots) {
         this.allDot = dots;
     }
 }

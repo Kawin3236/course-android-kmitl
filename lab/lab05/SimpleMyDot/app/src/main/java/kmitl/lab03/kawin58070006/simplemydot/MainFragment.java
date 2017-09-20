@@ -13,7 +13,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -24,7 +23,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Random;
 
-import kmitl.lab03.kawin58070006.simplemydot.controller.MainActivity;
 import kmitl.lab03.kawin58070006.simplemydot.controller.MainShear;
 import kmitl.lab03.kawin58070006.simplemydot.model.Colors;
 import kmitl.lab03.kawin58070006.simplemydot.model.Dot;
@@ -35,8 +33,8 @@ import kmitl.lab03.kawin58070006.simplemydot.view.DotView;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MainFragment extends Fragment implements Dots.OnDotsChangeListener, View.OnClickListener{
-    private Dots dots;
+public class MainFragment extends Fragment implements Dots.OnDotsChangeListener, View.OnClickListener, DotView.OnDotViewPressListener {
+    private static Dots dots;
     private DotView dotView;
 
     public MainFragment() {
@@ -55,54 +53,14 @@ public class MainFragment extends Fragment implements Dots.OnDotsChangeListener,
                              Bundle savedInstanceState) {
         View rootview = inflater.inflate(R.layout.fragment_main, container, false);
         dotView = (DotView) rootview.findViewById(R.id.dotView);
-        dotView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                // Dot newDot = new Dot(0, 0, 0, new Colors().getColor(), (Dot.DotChangedListener) MainActivity.this);
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        Random random = new Random();
-                        int x = (int) event.getX();
-                        int y = (int) event.getY();
-                        final int dotPosition = dots.findDot(x, y);
-                        if (dotPosition == -1){
-                            int color = new Colors().getColor();
-                            Dot newDot = new Dot(x, y, 30, color);
-                            dots.addDot(newDot);
-                        }else{
-                            AlertDialog.Builder a_builder = new AlertDialog.Builder(getActivity());
-                            a_builder.setMessage("Edit or Delete")
-                                    .setCancelable(false)
-                                    .setPositiveButton("Edit",new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            Colors colors = new Colors();
-                                            dots.getAllDot().get(dotPosition).setColor(colors.getColor());
-                                            dots.dotsChanged();
-
-                                        }
-                                    })
-                                    .setNegativeButton("Delete",new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            dots.removeBy(dotPosition);
-                                        }
-                                    }) ;
-                            AlertDialog alert = a_builder.create();
-                            alert.setTitle("Alert !!!");
-                            alert.show();
-
-                            // dots.removeBy(dotPosition);
-                        }
-                }
-                return false;
-            }
-        });
+        dotView.setOnDotViewPressListener(this);
+        dots = new Dots();
+        dots.setListener(this);
         initView(rootview);
         return rootview;
     }
 
-    public void initView(View rootView){
+    public void initView(View rootView) {
         dotView = (DotView) rootView.findViewById(R.id.dotView);
         Button btnRandom = (Button) rootView.findViewById(R.id.btnRandomDot);
         Button btnCapture = (Button) rootView.findViewById(R.id.btnCapture);
@@ -112,8 +70,6 @@ public class MainFragment extends Fragment implements Dots.OnDotsChangeListener,
         btnClear.setOnClickListener(this);
 
     }
-
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -126,10 +82,6 @@ public class MainFragment extends Fragment implements Dots.OnDotsChangeListener,
         dots.setListener(this);
 
     }
-
-
-
-
 
     public void onRandomDot(View view) {
         Random random = new Random();
@@ -153,8 +105,8 @@ public class MainFragment extends Fragment implements Dots.OnDotsChangeListener,
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void onCapture(View view) throws IOException {
-        if(ContextCompat.checkSelfPermission(getActivity(), android.Manifest.permission.WRITE_EXTERNAL_STORAGE) !=
-                PackageManager.PERMISSION_GRANTED){
+        if (ContextCompat.checkSelfPermission(getActivity(), android.Manifest.permission.WRITE_EXTERNAL_STORAGE) !=
+                PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
         }
         try {
@@ -166,7 +118,7 @@ public class MainFragment extends Fragment implements Dots.OnDotsChangeListener,
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
             byte[] byteArray = stream.toByteArray();
 
-            String path = Environment.getExternalStorageDirectory().toString()+ "/capture.png";
+            String path = Environment.getExternalStorageDirectory().toString() + "/capture.png";
 
             File imgFile = new File(path);
             FileOutputStream outputStream = new FileOutputStream(imgFile);
@@ -178,7 +130,7 @@ public class MainFragment extends Fragment implements Dots.OnDotsChangeListener,
             intent.putExtra("capture", byteArray);
             intent.putExtra("path", path);
             startActivity(intent);
-        }catch (Throwable e){
+        } catch (Throwable e) {
             e.printStackTrace();
         }
     }
@@ -186,7 +138,7 @@ public class MainFragment extends Fragment implements Dots.OnDotsChangeListener,
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.btnRandomDot:
                 onRandomDot(view);
                 break;
@@ -202,5 +154,67 @@ public class MainFragment extends Fragment implements Dots.OnDotsChangeListener,
                 break;
         }
 
+    }
+
+
+    @Override
+    public void onDotViewPressed(int x, int y) {
+        final int dotPosition = dots.findDot(x, y);  //get index in List
+        final int r = ((int) (Math.random() * 60)) + 20;
+        //Don't have dot
+        if (dotPosition == -1) {
+            Dot newDot = new Dot(x, y, r, new Colors().getColor());
+            dots.addDot(newDot);
+
+            //Have dot
+        } else {
+            dots.removeBy(dotPosition);
+        }
+    }
+
+    public interface DotFragmentListener {
+        void DotLongPressSelected(Dot dot, Dots dots, int dotPosition);
+    }
+
+    private DotFragmentListener getDotFragmentListener() {
+        Fragment fragment = getParentFragment();
+        try {
+            if (fragment != null) {
+                return (DotFragmentListener) fragment;
+            } else {
+                return (DotFragmentListener) getActivity();
+            }
+        } catch (ClassCastException ignored) {
+        }
+        return null;
+    }
+
+    @Override
+    public void onDotViewLongPressed(int x, int y) {
+        final int dotPosition = dots.findDot(x, y);
+
+        //Have Dot
+        if (dotPosition != -1) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
+            builder.setItems(new CharSequence[]{" Edit Dot", " Delete"},
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            switch (which) {
+                                case 0:
+                                    DotFragmentListener listener = getDotFragmentListener();
+                                    Dot dot = dots.getAllDot().get(dotPosition);
+                                    listener.DotLongPressSelected(dot, dots, dotPosition);
+                                    dialog.dismiss();
+                                    break;
+                                case 1:
+                                    dots.removeBy(dotPosition);
+                                    dialog.dismiss();
+                                    break;
+                            }
+                        }
+                    });
+            builder.show();
+        }
     }
 }
