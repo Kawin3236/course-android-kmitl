@@ -1,4 +1,4 @@
-package kmitl.lab03.kawin58070006.simplemydot;
+package kmitl.lab03.kawin58070006.simplemydot.controller;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.ImageView;
 
 import java.io.File;
+
+import kmitl.lab03.kawin58070006.simplemydot.R;
 
 public class MainShear extends AppCompatActivity {
     private String path;
