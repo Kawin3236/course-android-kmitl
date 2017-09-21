@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 
 import kmitl.lab03.kawin58070006.simplemydot.model.Dot;
 import kmitl.lab03.kawin58070006.simplemydot.model.Dots;
@@ -25,6 +26,8 @@ public class EditDotFragment extends Fragment implements View.OnClickListener {
     private Dots dots;
     private int dotPosition;
     private int color;
+    EditText positionX;
+    EditText positionY;
 
 
     public EditDotFragment() {
@@ -57,6 +60,13 @@ public class EditDotFragment extends Fragment implements View.OnClickListener {
         Button btnYellow = (Button) rootView.findViewById(R.id.btnYellow);
         Button btnGray = (Button) rootView.findViewById(R.id.btnGray);
         Button btnMagenta = (Button) rootView.findViewById(R.id.btnMAGENTA);
+        Button set = (Button) rootView.findViewById(R.id.btnSet);
+        positionX = (EditText) rootView.findViewById(R.id.positionX);
+        positionY = (EditText) rootView.findViewById(R.id.positionY);
+
+
+        positionX.setText(String.valueOf(dot.getCenterX()));
+        positionY.setText(String.valueOf(dot.getCenterY()));
 
         btnGreen.setOnClickListener(this);
         btnCyan.setOnClickListener(this);
@@ -65,6 +75,7 @@ public class EditDotFragment extends Fragment implements View.OnClickListener {
         btnMagenta.setOnClickListener(this);
         btnRed.setOnClickListener(this);
         btnBlue.setOnClickListener(this);
+        set.setOnClickListener(this);
 
         return rootView;
     }
@@ -93,9 +104,15 @@ public class EditDotFragment extends Fragment implements View.OnClickListener {
             case R.id.btnCyan:
                 dot.setColor(Color.CYAN);
                 break;
+            case R.id.btnSet:
+                dot.setCenterX(Integer.parseInt(String.valueOf(positionX.getText())));
+                dot.setCenterY(Integer.parseInt(String.valueOf(positionY.getText())));
+
 
         }
         dots.editAttributeDot(dotPosition, dot);
+        getActivity().onBackPressed();
+
     }
 
 }
