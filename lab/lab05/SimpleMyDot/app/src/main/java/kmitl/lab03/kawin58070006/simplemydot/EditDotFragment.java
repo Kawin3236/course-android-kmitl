@@ -26,9 +26,9 @@ public class EditDotFragment extends Fragment implements View.OnClickListener {
     private Dots dots;
     private int dotPosition;
     private int color;
-    EditText positionX;
-    EditText positionY;
-
+    private EditText positionX;
+    private EditText positionY;
+    private EditText radius;
 
     public EditDotFragment() {
         // Required empty public constructor
@@ -63,10 +63,12 @@ public class EditDotFragment extends Fragment implements View.OnClickListener {
         Button set = (Button) rootView.findViewById(R.id.btnSet);
         positionX = (EditText) rootView.findViewById(R.id.positionX);
         positionY = (EditText) rootView.findViewById(R.id.positionY);
+        radius = (EditText) rootView.findViewById(R.id.radius);
 
 
         positionX.setText(String.valueOf(dot.getCenterX()));
         positionY.setText(String.valueOf(dot.getCenterY()));
+        radius.setText(String.valueOf(dot.getRadius()));
 
         btnGreen.setOnClickListener(this);
         btnCyan.setOnClickListener(this);
@@ -105,14 +107,17 @@ public class EditDotFragment extends Fragment implements View.OnClickListener {
                 dot.setColor(Color.CYAN);
                 break;
             case R.id.btnSet:
-                dot.setCenterX(Integer.parseInt(String.valueOf(positionX.getText())));
-                dot.setCenterY(Integer.parseInt(String.valueOf(positionY.getText())));
-
-
+                setDot();
+                break;
         }
         dots.editAttributeDot(dotPosition, dot);
         getActivity().onBackPressed();
+    }
 
+    public void setDot() {
+        dot.setCenterX(Integer.parseInt(String.valueOf(positionX.getText())));
+        dot.setCenterY(Integer.parseInt(String.valueOf(positionY.getText())));
+        dot.setRadius(Integer.parseInt(String.valueOf(radius.getText())));
     }
 
 }

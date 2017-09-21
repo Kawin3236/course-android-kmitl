@@ -19,7 +19,6 @@ public class MainActivity extends AppCompatActivity implements MainFragment.DotF
     private Dots dots;
     private DotView dotView;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,7 +29,6 @@ public class MainActivity extends AppCompatActivity implements MainFragment.DotF
 
 
     }
-
     private void initialFragment() {
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
@@ -45,8 +43,6 @@ public class MainActivity extends AppCompatActivity implements MainFragment.DotF
                 .addToBackStack(null)
                 .commit();
     }
-
-
     @Override
     public void DotLongPressSelected(Dot dot, Dots dots, int dotPosition) {
         viewFragment(EditDotFragment.newInstance(dot, dots, dotPosition));

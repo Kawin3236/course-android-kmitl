@@ -47,11 +47,11 @@ public class Dot implements Parcelable {
 
     }
 
-    public interface DotChangedListener{
+    public interface DotChangedListener {
         void onDotChanged(Dot dot);
     }
 
-    public void setDotChangedListener(DotChangedListener dotChangedListener){
+    public void setDotChangedListener(DotChangedListener dotChangedListener) {
         this.dotChangedListener = dotChangedListener;
     }
 
