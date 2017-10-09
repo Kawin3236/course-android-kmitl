@@ -1,9 +1,7 @@
 package demo.com.mylazyinstagram;
 
-import android.media.Image;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
@@ -19,7 +17,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         PostAdapter postAdaptet = new PostAdapter(this);
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.list);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        postAdaptet.setData(new UserProfile().getPosts());
         recyclerView.setAdapter(postAdaptet);
     }
 

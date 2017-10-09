@@ -1,5 +1,7 @@
 package demo.com.mylazyinstagram;
 
+import java.util.List;
+
 /**
  * Created by student on 10/6/2017 AD.
  */
@@ -7,6 +9,19 @@ package demo.com.mylazyinstagram;
 public class UserProfile {
     private String follower;
     private String bio;
+    private String following;
+    private String urlProfile;
+    private String user;
+    private String post;
+    private List<PostModel> posts;
+
+    public List<PostModel> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<PostModel> posts) {
+        this.posts = posts;
+    }
 
     public String getBio() {
         return bio;
@@ -24,9 +39,6 @@ public class UserProfile {
         this.following = following;
     }
 
-    private String following;
-    private String urlProfile;
-
     public String getFollower() {
         return follower;
     }
@@ -43,8 +55,6 @@ public class UserProfile {
         this.urlProfile = urlProfile;
     }
 
-    private String user;
-
     public String getPost() {
         return post;
     }
@@ -52,8 +62,6 @@ public class UserProfile {
     public void setPost(String post) {
         this.post = post;
     }
-
-    private String post;
 
     public String getUser() {
         return user;
