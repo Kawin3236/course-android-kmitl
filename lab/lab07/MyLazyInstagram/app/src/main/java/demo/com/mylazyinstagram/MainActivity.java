@@ -26,11 +26,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         getUserProfile("nature");
 
-        PostAdapter postAdaptet = new PostAdapter(this);
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.list);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        postAdaptet.setData(new UserProfile().getPosts());
-        recyclerView.setAdapter(postAdaptet);
+
     }
 
     private void getUserProfile(String name) {
@@ -51,6 +47,13 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<UserProfile> call, Response<UserProfile> response) {
 
                 UserProfile userProfile = response.body();
+
+                PostAdapter postAdaptet = new PostAdapter(MainActivity.this);
+                postAdaptet.setData(userProfile.getPosts());
+                RecyclerView recyclerView = (RecyclerView) findViewById(R.id.list);
+                recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+                recyclerView.setAdapter(postAdaptet);
+
                 TextView username = (TextView) findViewById(R.id.textName);
                 TextView post = (TextView) findViewById(R.id.textPost);
                 TextView follower = (TextView) findViewById(R.id.textFollower);
