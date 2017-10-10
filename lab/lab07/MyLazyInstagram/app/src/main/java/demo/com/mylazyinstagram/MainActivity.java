@@ -2,6 +2,7 @@ package demo.com.mylazyinstagram;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
@@ -24,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getUserProfile("nature");
+        getUserProfile("android");
 
 
     }
@@ -45,31 +46,9 @@ public class MainActivity extends AppCompatActivity {
         call.enqueue(new Callback<UserProfile>() {
             @Override
             public void onResponse(Call<UserProfile> call, Response<UserProfile> response) {
-
                 UserProfile userProfile = response.body();
-
-                PostAdapter postAdaptet = new PostAdapter(MainActivity.this);
-                postAdaptet.setData(userProfile.getPosts());
-                RecyclerView recyclerView = (RecyclerView) findViewById(R.id.list);
-                recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
-                recyclerView.setAdapter(postAdaptet);
-
-                TextView username = (TextView) findViewById(R.id.textName);
-                TextView post = (TextView) findViewById(R.id.textPost);
-                TextView follower = (TextView) findViewById(R.id.textFollower);
-                TextView following = (TextView) findViewById(R.id.textFollowing);
-                TextView bio = (TextView) findViewById(R.id.textBio);
-                username.setText("@"+userProfile.getUser());
-                post.setText(userProfile.getPost());
-                follower.setText(userProfile.getFollower());
-                following.setText(userProfile.getFollowing());
-                bio.setText(userProfile.getBio());
-
-
-                ImageView imageView = (ImageView) findViewById(R.id.imageView);
-                Glide.with(MainActivity.this)
-                        .load(userProfile.getUrlProfile())
-                        .into(imageView);
+                setAdapter(userProfile);
+                setView(userProfile);
             }
 
             @Override
@@ -77,10 +56,32 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
 
+    public void setView(UserProfile userProfile) {
+        TextView username = (TextView) findViewById(R.id.textName);
+        TextView post = (TextView) findViewById(R.id.textPost);
+        TextView follower = (TextView) findViewById(R.id.textFollower);
+        TextView following = (TextView) findViewById(R.id.textFollowing);
+        TextView bio = (TextView) findViewById(R.id.textBio);
 
+        username.setText("@" + userProfile.getUser());
+        post.setText(userProfile.getPost());
+        follower.setText(userProfile.getFollower());
+        following.setText(userProfile.getFollowing());
+        bio.setText(userProfile.getBio());
 
+        ImageView imageView = (ImageView) findViewById(R.id.imageView);
+        Glide.with(MainActivity.this)
+                .load(userProfile.getUrlProfile())
+                .into(imageView);
+    }
 
-
+    public void setAdapter(UserProfile userProfile) {
+        PostAdapter postAdaptet = new PostAdapter(MainActivity.this);
+        postAdaptet.setData(userProfile.getPosts());
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.list);
+        recyclerView.setLayoutManager(new GridLayoutManager(MainActivity.this, 3));
+        recyclerView.setAdapter(postAdaptet);
     }
 }
