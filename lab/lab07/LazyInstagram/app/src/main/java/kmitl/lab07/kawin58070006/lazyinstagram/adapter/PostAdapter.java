@@ -21,23 +21,37 @@ import kmitl.lab07.kawin58070006.lazyinstagram.R;
  * Created by Administrator on 11/10/2560.
  */
 
-public class PostAdapter extends RecyclerView.Adapter<PostAdapter.Holder>{
+public class PostAdapter extends RecyclerView.Adapter<PostAdapter.Holder> {
 
     private Activity activity;
     private List<PostModel> data;
+    private String layout;
+
     public PostAdapter(Activity activity) {
         this.activity = activity;
         data = new ArrayList<>();
     }
-    public void setData(List<PostModel> data) {
+
+    public void setData(List<PostModel> data, String layout) {
         this.data = data;
+        this.layout = layout;
     }
+
     @Override
     public Holder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.post_item, null);
-        Holder holder = new Holder(itemView);
-        return holder;
+        if (layout.equals("Grid")) {
+            View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.post_item, null);
+            Holder holder = new Holder(itemView);
+            return holder;
+        } else {
+            View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.post_item2, null);
+            Holder holder = new Holder(itemView);
+            return holder;
+        }
+
+
     }
+
     @Override
     public void onBindViewHolder(Holder holder, int position) {
         String imageUrl = data.get(position).getUrl();
@@ -48,14 +62,17 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.Holder>{
         comment.setText(data.get(position).getComment());
 
     }
+
     @Override
     public int getItemCount() {
         return data.size();
     }
+
     static class Holder extends RecyclerView.ViewHolder {
         ImageView imageView;
         TextView like;
         TextView comment;
+
         public Holder(View itemView) {
             super(itemView);
             imageView = (ImageView) itemView.findViewById(R.id.imageView);

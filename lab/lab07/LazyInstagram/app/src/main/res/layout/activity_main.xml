@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#302f2f"
     tools:context="kmitl.lab07.kawin58070006.lazyinstagram.MainActivity">
 
     <android.support.constraint.ConstraintLayout
@@ -44,23 +45,40 @@
 
     </android.support.constraint.ConstraintLayout>
 
-    <TextView
-        android:id="@+id/textName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+
+    
+    <Spinner
+        android:id="@+id/spinUser"
+        android:layout_width="173dp"
+        android:layout_height="27dp"
         android:layout_marginLeft="8dp"
+        app:layout_constraintRight_toLeftOf="@+id/btnLayout"
         android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Kawin"
-        app:layout_constraintBottom_toBottomOf="@+id/constraintLayout"
-        app:layout_constraintHorizontal_bias="0.312"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@+id/constraintLayout"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="@+id/constraintLayout"
+        app:layout_constraintHorizontal_bias="0.62"></Spinner>
+    <Button
+        android:id="@+id/btnLayout"
+        android:background="#dc1010"
+        android:layout_width="25dp"
+        android:layout_height="26dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/list"
+        app:layout_constraintTop_toTopOf="@+id/constraintLayout"
+        android:layout_marginTop="8dp"
+        app:layout_constraintHorizontal_bias="0.978"
         app:layout_constraintVertical_bias="0.0"
         android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp" />
+        android:layout_marginEnd="8dp"
+        tools:layout_editor_absoluteX="345dp" />
 
     <TextView
         android:id="@+id/textView2"
@@ -219,6 +237,8 @@
 
     </LinearLayout>
 
+
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/list"
         android:layout_width="376dp"
@@ -234,4 +254,6 @@
         app:layout_constraintVertical_bias="0.444"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp" />
+
+
 </android.support.constraint.ConstraintLayout>
