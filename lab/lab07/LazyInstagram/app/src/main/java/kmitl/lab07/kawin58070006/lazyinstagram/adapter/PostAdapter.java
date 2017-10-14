@@ -48,8 +48,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.Holder> {
             Holder holder = new Holder(itemView);
             return holder;
         }
-
-
     }
 
     @Override
@@ -60,7 +58,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.Holder> {
         Glide.with(activity).load(imageUrl).into(holder.imageView);
         like.setText(data.get(position).getLike());
         comment.setText(data.get(position).getComment());
-
     }
 
     @Override

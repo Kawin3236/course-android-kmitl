@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -29,7 +28,9 @@ public class MainActivity extends AppCompatActivity {
 
     private String user = "android";
     private Spinner spinner;
+    private Spinner spinnerLayout;
     private ArrayAdapter<CharSequence> adapter;
+    private ArrayAdapter<CharSequence> adapterLayout;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,72 +43,62 @@ public class MainActivity extends AppCompatActivity {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(getBaseContext(), adapterView.getItemAtPosition(i)+ " selected", Toast.LENGTH_LONG).show();
+                Toast.makeText(getBaseContext(), adapterView.getItemAtPosition(i) + " selected", Toast.LENGTH_LONG).show();
                 getUserProfile((String) adapterView.getItemAtPosition(i));
-
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-
             }
         });
     }
 
     private void getUserProfile(String name) {
-        OkHttpClient client = new OkHttpClient.Builder().build();
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(LazyInstagramApi.BASE)
-                .client(client)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        LazyInstagramApi lazyInstagramApi = retrofit.create(LazyInstagramApi.class);
-        Call<UserProfile> call = lazyInstagramApi.getProfile(name);
+        getConnection();
+        Call<UserProfile> call = getConnection().getProfile(name);
         call.enqueue(new Callback<UserProfile>() {
             @Override
             public void onResponse(Call<UserProfile> call, final Response<UserProfile> response) {
                 UserProfile userProfile = response.body();
                 setAdapter(userProfile, "Grid");
                 setView(userProfile);
-
-                final Button btnLayout = findViewById(R.id.btnLayout);
-                btnLayout.setOnClickListener(new View.OnClickListener() {
-                    String layout = "Grid";
+                spinnerLayout = findViewById(R.id.spinLayout);
+                adapterLayout = ArrayAdapter.createFromResource(MainActivity.this, R.array.layout, R.layout.support_simple_spinner_dropdown_item);
+                adapterLayout.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+                spinnerLayout.setAdapter(adapterLayout);
+                spinnerLayout.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     UserProfile userProfile = response.body();
 
                     @Override
-                    public void onClick(View view) {
-                        if (layout.equals("Grid")) {
-                            setAdapter(userProfile, "");
-                            setView(userProfile);
-                            layout = "Linear";
-                        } else {
-                            setAdapter(userProfile, "Grid");
-                            setView(userProfile);
-                            layout = "Grid";
-                        }
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        Toast.makeText(getBaseContext(), adapterView.getItemAtPosition(i) + " selected", Toast.LENGTH_LONG).show();
+                        String layout = (String) adapterView.getItemAtPosition(i);
+                        setLayout(userProfile, layout);
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
                     }
                 });
             }
 
             @Override
             public void onFailure(Call<UserProfile> call, Throwable t) {
-
             }
         });
-
     }
 
     public void setView(UserProfile userProfile) {
-        
         TextView post = (TextView) findViewById(R.id.textPost);
-        TextView follower = (TextView) findViewById(R.id.textFollower);
-        TextView following = (TextView) findViewById(R.id.textFollowing);
-        TextView bio = (TextView) findViewById(R.id.textBio);
-
         post.setText(userProfile.getPost());
+
+        TextView follower = (TextView) findViewById(R.id.textFollower);
         follower.setText(userProfile.getFollower());
+
+        TextView following = (TextView) findViewById(R.id.textFollowing);
         following.setText(userProfile.getFollowing());
+
+        TextView bio = (TextView) findViewById(R.id.textBio);
         bio.setText(userProfile.getBio());
 
         ImageView imageView = (ImageView) findViewById(R.id.imageView);
@@ -128,5 +119,24 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(postAdaptet);
     }
 
+    public void setLayout(UserProfile userProfile, String layout) {
+        if (!layout.equals("GridLayout")) {
+            setAdapter(userProfile, "");
+            setView(userProfile);
+        } else {
+            setAdapter(userProfile, "Grid");
+            setView(userProfile);
+        }
+    }
 
+    public LazyInstagramApi getConnection() {
+        OkHttpClient client = new OkHttpClient.Builder().build();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(LazyInstagramApi.BASE)
+                .client(client)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        LazyInstagramApi lazyInstagramApi = retrofit.create(LazyInstagramApi.class);
+        return lazyInstagramApi;
+    }
 }

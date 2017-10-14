@@ -5,4 +5,8 @@
         <item>nature</item>
         <item>cartoon</item>
     </string-array>
+    <string-array name="layout">
+        <item>GridLayout</item>
+        <item>LinearLayout</item>
+    </string-array>
 </resources>
