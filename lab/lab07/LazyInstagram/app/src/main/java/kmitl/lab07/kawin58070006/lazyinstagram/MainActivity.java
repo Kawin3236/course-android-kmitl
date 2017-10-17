@@ -103,20 +103,24 @@ public class MainActivity extends AppCompatActivity {
         bio.setText(userProfile.getBio());
 
         final Button btnFollow = findViewById(R.id.btnFollow);
-        if (userProfile.getIsFollow().equals("true")){
+        if (userProfile.getIsFollow().equals("true")) {
             btnFollow.setText("Following");
-        }
-        else
+            btnFollow.setBackgroundColor(0xFF87CA9A);
+        } else {
             btnFollow.setText("Follow");
+
+        }
 
         btnFollow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(btnFollow.getText().equals("Following")){
+                if (btnFollow.getText().equals("Following")) {
                     btnFollow.setText("Follow");
-                }
-                else
+                    btnFollow.setBackgroundColor(0xFFE10627);
+                } else {
                     btnFollow.setText("Following");
+                    btnFollow.setBackgroundColor(0xFF87CA9A);
+                }
             }
         });
 
