@@ -4,18 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#e5cfc298"
+    android:background="#50cfc298"
     tools:context="kmitl.lab07.kawin58070006.lazyinstagram.MainActivity">
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/constraintLayout"
-        android:layout_width="377dp"
+        android:layout_width="0dp"
         android:layout_height="106dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+        android:layout_marginStart="2dp"
         android:layout_marginTop="8dp"
         android:background="#49bc840c"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -23,7 +23,9 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintLeft_creator="1">
 
         <ImageView
             android:id="@+id/imageView"
@@ -49,8 +51,8 @@
     <Spinner
         android:id="@+id/spinUser"
         android:layout_width="108dp"
-        android:layout_height="24dp"
-        android:layout_marginBottom="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="1dp"
 
         android:layout_marginLeft="107dp"
         android:layout_marginTop="8dp"
@@ -58,7 +60,9 @@
         app:layout_constraintLeft_toLeftOf="@+id/constraintLayout"
         app:layout_constraintTop_toTopOf="@+id/constraintLayout"
         app:layout_constraintVertical_bias="0.0"
-        tools:layout_editor_absoluteY="17dp"></Spinner>
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintBottom_creator="1"
+        android:layout_marginStart="107dp"></Spinner>
 
     <Spinner
         android:id="@+id/spinLayout"
@@ -76,9 +80,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@+id/constraintLayout"
-        app:layout_constraintVertical_bias="0.0"
-        tools:layout_editor_absoluteX="231dp"
-        tools:layout_editor_absoluteY="17dp" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/textView2"
@@ -194,33 +196,32 @@
         app:layout_constraintVertical_bias="0.342" />
 
     <LinearLayout
-        android:layout_width="273dp"
+        android:layout_width="150dp"
         android:layout_height="32dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/constraintLayout"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintLeft_toLeftOf="@+id/constraintLayout"
         app:layout_constraintRight_toRightOf="@+id/constraintLayout"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintVertical_bias="1.0"
+        android:id="@+id/linearLayout2"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintLeft_creator="1">
 
         <ScrollView
-            android:layout_width="match_parent"
+            android:layout_width="150dp"
             android:layout_height="match_parent">
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/textBio"
-                    android:layout_width="match_parent"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:layout_marginEnd="8dp"
@@ -243,19 +244,44 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/list"
-        android:layout_width="376dp"
-        android:layout_height="397dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="3dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
-        app:layout_constraintVertical_bias="0.444" />
+        app:layout_constraintVertical_bias="0.444"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintBottom_creator="1"
+        tools:layout_constraintLeft_creator="1" />
+
+    <Button
+        android:id="@+id/btnFollow"
+        android:layout_width="91dp"
+        android:layout_height="25dp"
+        android:text="Button"
+        android:textSize="10sp"
+        android:background="#bec2c2"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="@+id/constraintLayout"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/list"
+        app:layout_constraintHorizontal_bias="0.375"
+        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintLeft_toRightOf="@+id/linearLayout2"
+        app:layout_constraintTop_toTopOf="@+id/textFollower"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        tools:layout_editor_absoluteY="73dp"
+        tools:layout_editor_absoluteX="276dp" />
 
 
 </android.support.constraint.ConstraintLayout>

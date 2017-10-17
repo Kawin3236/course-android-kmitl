@@ -15,6 +15,7 @@ public class UserProfile {
     private String urlProfile;
     private String user;
     private String post;
+    private String isFollow;
     private List<PostModel> posts;
 
     public String getFollower() {
@@ -71,5 +72,13 @@ public class UserProfile {
 
     public void setPosts(List<PostModel> posts) {
         this.posts = posts;
+    }
+
+    public String getIsFollow() {
+        return isFollow;
+    }
+
+    public void setIsFollow(String isFollow) {
+        this.isFollow = isFollow;
     }
 }

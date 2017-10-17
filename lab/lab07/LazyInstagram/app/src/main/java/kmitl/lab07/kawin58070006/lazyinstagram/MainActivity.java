@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -100,6 +101,24 @@ public class MainActivity extends AppCompatActivity {
 
         TextView bio = (TextView) findViewById(R.id.textBio);
         bio.setText(userProfile.getBio());
+
+        final Button btnFollow = findViewById(R.id.btnFollow);
+        if (userProfile.getIsFollow().equals("true")){
+            btnFollow.setText("Following");
+        }
+        else
+            btnFollow.setText("Follow");
+
+        btnFollow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(btnFollow.getText().equals("Following")){
+                    btnFollow.setText("Follow");
+                }
+                else
+                    btnFollow.setText("Following");
+            }
+        });
 
         ImageView imageView = (ImageView) findViewById(R.id.imageView);
         Glide.with(MainActivity.this)
