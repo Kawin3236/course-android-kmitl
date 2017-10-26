@@ -31,5 +31,10 @@ public class CommonSharePreference {
         }
         return result;
     }
+    public void remove(){
+              SharedPreferences.Editor editor = sharedPreferences.edit();
+               editor.clear();
+               editor.commit();
+    }
 }
 

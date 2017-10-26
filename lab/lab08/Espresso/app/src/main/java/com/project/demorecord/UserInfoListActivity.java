@@ -43,9 +43,9 @@ public class UserInfoListActivity extends AppCompatActivity {
         list.setLayoutManager(new LinearLayoutManager(this));
         list.setAdapter(adapter);
 
-        UserInfoList suggestSearchList = (UserInfoList) preference.read(UserInfoListActivity.EXTTRA_LIST, UserInfoList.class);
-        if (suggestSearchList != null) {
-            displaySuggestsList(suggestSearchList.getUserInfoList());
+        //UserInfoList suggestSearchList = (UserInfoList) preference.read(UserInfoListActivity.EXTTRA_LIST, UserInfoList.class);
+        if (userInfoList != null) {
+            displaySuggestsList(userInfoList.getUserInfoList());
 
         } else {
             displaySuggestsList(new ArrayList<UserInfo>());
@@ -53,10 +53,12 @@ public class UserInfoListActivity extends AppCompatActivity {
     }
 
     @OnClick(R.id.btnClearList)
-    public void clearList(){
-        userInfoList.getUserInfoList().clear();
-        preference.save(UserInfoListActivity.EXTTRA_LIST, userInfoList);
-        displaySuggestsList(userInfoList.getUserInfoList());
+    public void clearList() {
+        preference.remove();
+        Intent i = getBaseContext().getPackageManager()
+                .getLaunchIntentForPackage(getBaseContext().getPackageName());
+        i.addFlags(Intent.EXTRA_DOCK_STATE_CAR);
+        startActivity(i);
     }
 
     public void displaySuggestsList(List<UserInfo> suggestsList) {
