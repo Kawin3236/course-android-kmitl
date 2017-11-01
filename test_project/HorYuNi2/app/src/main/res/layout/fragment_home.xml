@@ -1,0 +1,51 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="10"
+    android:background="#fff"
+    tools:context="kmitl.kawin58070006.horyuni.HomeFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="9"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="0dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:weightSum="4">
+
+        <Button
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#a41717" />
+
+        <Button
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#836d6d" />
+
+        <Button
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#a41717" />
+
+        <Button
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#581bd2" />
+
+    </LinearLayout>
+</LinearLayout>
