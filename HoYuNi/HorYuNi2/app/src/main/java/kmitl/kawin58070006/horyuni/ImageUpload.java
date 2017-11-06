@@ -31,6 +31,10 @@ public class ImageUpload {
         this.url2 = url2;
     }
 
+    public ImageUpload(String url2) {
+        this.url2 = url2;
+    }
+
     public void setName(String name) {
         this.name = name;
     }

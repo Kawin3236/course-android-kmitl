@@ -57,7 +57,11 @@ public class MainFragment extends Fragment {
     public static final int Request_Code2 = 12345;
 
     private List<Uri> listUri = new ArrayList<>();
+    private List<String> aaa = new ArrayList<>();
+    private List<StorageReference> storageReferencesList = new ArrayList<>();
 
+    private int numCheck = 0;
+    private int numCheckList = 0;
 
     public MainFragment() {
         // Required empty public constructor
@@ -112,101 +116,118 @@ public class MainFragment extends Fragment {
                     final ProgressDialog dialog = new ProgressDialog(getActivity());
                     dialog.setTitle("Uploading image");
                     dialog.show();
+                    System.out.println("URI is ::::::::::::::::::::: " + imguri);
+                    System.out.println("URI2 is ::::::::::::::::::::: " + imguri2);
+//                    System.out.println("URI2 is ::::::::::::::::::::: " + taskSnapshot.getDownloadUrl().toString());
+//                    System.out.println("URI2 is ::::::::::::::::::::: " + getImageExt(imguri2));
 
                     //Get the storage reference
                     StorageReference ref = storageReference.child(FB_Storage_Path + System.currentTimeMillis() + "." + getImageExt(imguri));
-                    final StorageReference ref2 = storageReference.child(FB_Storage_Path + System.currentTimeMillis() + "." + getImageExt(imguri2));
+                    StorageReference ref2 = storageReference.child(FB_Storage_Path + System.currentTimeMillis() + "." + getImageExt(imguri2));
+                    storageReferencesList.add(ref);
+                    storageReferencesList.add(ref2);
+
 
                     //Add file to reference
-                    ref.putFile(imguri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    for (int i=0 ; i< storageReferencesList.size();i++) {
+                        storageReferencesList.get(i).putFile(listUri.get(i)).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                numCheck++;
+                                //Dimiss dialog when success
+                                dialog.dismiss();
+                                //Display success toast msg
+                                Toast.makeText(getContext(), "Image uploaded", Toast.LENGTH_SHORT).show();
 
+                                aaa.add(taskSnapshot.getDownloadUrl().toString());
 
-                            //Dimiss dialog when success
-                            dialog.dismiss();
-                            //Display success toast msg
-                            Toast.makeText(getContext(), "Image uploaded", Toast.LENGTH_SHORT).show();
-                            ImageUpload imageUpload = new ImageUpload(editText.getText().toString(), taskSnapshot.getDownloadUrl().toString(), ref2.getDownloadUrl().toString());
-
-                            //Save image info in to firebase database
-                            String uploadId = databaseReference.push().getKey();
-                            databaseReference.child(uploadId).setValue(imageUpload);
-
-                        }
-                    })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-
-                                    //Dimiss dialog when error
-                                    dialog.dismiss();
-                                    //Display err toast msg
-                                    Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                                //System.out.println("URI2 is ::::::::::::::::::::: " + taskSnapshot.getDownloadUrl().toString());
+                                //System.out.println("URI2 is ::::::::::::::::::::: " + ref2.getDownloadUrl().toString());
+                                if(numCheck == storageReferencesList.size()){
+                                    ImageUpload imageUpload = new ImageUpload(editText.getText().toString(), aaa.get(1),aaa.get(0));
+                                    //Save image info in to firebase database
+                                    String uploadId = databaseReference.push().getKey();
+                                    databaseReference.child(uploadId).setValue(imageUpload);
                                 }
-                            })
-                            .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
 
-                                @Override
-                                public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
 
-                                    //Show upload progress
+                            }
+                        })
+                              .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
 
-                                    double progress = (100 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
-                                    dialog.setMessage("Uploaded " + (int) progress + "%");
-                                }
-                            });
-                } else {
-                    Toast.makeText(getContext(), "Please select image", Toast.LENGTH_SHORT).show();
+                                        //Dimiss dialog when error
+                                        dialog.dismiss();
+                                        //Display err toast msg
+                                        Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                })
+                                .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+
+                                    @Override
+                                    public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+
+                                        //Show upload progress
+
+                                        double progress = (100 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+                                        dialog.setMessage("Uploaded " + (int) progress + "%");
+                                    }
+                                });
+                    }} else{
+                        Toast.makeText(getContext(), "Please select image", Toast.LENGTH_SHORT).show();
+
+                    }
                 }
-            }
-        });
+            });
 
-        btnShowListImage = rootView.findViewById(R.id.btnShowListImage);
-        btnShowListImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            btnShowListImage =rootView.findViewById(R.id.btnShowListImage);
+        btnShowListImage.setOnClickListener(new View.OnClickListener()
+
+            {
+                @Override
+                public void onClick (View v){
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .add(R.id.fragmentContainer, HomeFragment.newInstance())
                         .addToBackStack(null)
                         .commit();
             }
-        });
+            });
 
         return rootView;
-    }
+        }
 
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == Request_Code && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            imguri = data.getData();
-            listUri.add(imguri);
+        @Override
+        public void onActivityResult ( int requestCode, int resultCode, Intent data){
+            super.onActivityResult(requestCode, resultCode, data);
+            if (requestCode == Request_Code && resultCode == RESULT_OK && data != null && data.getData() != null) {
+                imguri = data.getData();
+                listUri.add(imguri);
 
-            try {
-                Bitmap bm = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), imguri);
-                imageView.setImageBitmap(bm);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
+                try {
+                    Bitmap bm = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), imguri);
+                    imageView.setImageBitmap(bm);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (requestCode == Request_Code2 && resultCode == RESULT_OK && data != null && data.getData() != null) {
+                imguri2 = data.getData();
+                listUri.add(imguri2);
+
+                try {
+                    Bitmap bm = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), imguri2);
+                    imageView2.setImageBitmap(bm);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
-        if (requestCode == Request_Code2 && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            imguri2 = data.getData();
-            listUri.add(imguri);
-
-            try {
-                Bitmap bm = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), imguri2);
-                imageView2.setImageBitmap(bm);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
 
 
     public String getImageExt(Uri uri) {
