@@ -15,10 +15,15 @@
         android:onClick="btnBrowse_Click"/>
 
     <ImageView
-        android:layout_width="300dp"
-        android:layout_height="300dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_gravity="center"
         android:id="@+id/imageView"/>
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:id="@+id/imageView2"/>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

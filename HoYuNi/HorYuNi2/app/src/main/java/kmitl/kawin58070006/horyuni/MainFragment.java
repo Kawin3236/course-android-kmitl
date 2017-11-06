@@ -30,6 +30,8 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -41,8 +43,10 @@ public class MainFragment extends Fragment {
     private StorageReference storageReference;
     private DatabaseReference databaseReference;
     private ImageView imageView;
+    private ImageView imageView2;
     private EditText editText;
     private Uri imguri;
+    private Uri imguri2;
     private Button btnBrowse_Click;
     private Button btnUpload;
     private Button btnShowListImage;
@@ -50,6 +54,9 @@ public class MainFragment extends Fragment {
     public static final String FB_Storage_Path = "image/";
     public static final String FB_Database_Path = "image";
     public static final int Request_Code = 1234;
+    public static final int Request_Code2 = 12345;
+
+    private List<Uri> listUri = new ArrayList<>();
 
 
     public MainFragment() {
@@ -74,6 +81,7 @@ public class MainFragment extends Fragment {
         databaseReference = FirebaseDatabase.getInstance().getReference(FB_Database_Path);
 
         imageView = (ImageView) rootView.findViewById(R.id.imageView);
+        imageView2 = (ImageView) rootView.findViewById(R.id.imageView2);
         editText = (EditText) rootView.findViewById(R.id.txtImageName);
         btnBrowse_Click = rootView.findViewById(R.id.btnBrowse_Click);
         btnBrowse_Click.setOnClickListener(new View.OnClickListener() {
@@ -83,6 +91,15 @@ public class MainFragment extends Fragment {
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(Intent.createChooser(intent, "Select image"), Request_Code);
+            }
+        });
+        imageView2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Select image"), Request_Code2);
             }
         });
 
@@ -98,9 +115,9 @@ public class MainFragment extends Fragment {
 
                     //Get the storage reference
                     StorageReference ref = storageReference.child(FB_Storage_Path + System.currentTimeMillis() + "." + getImageExt(imguri));
+                    final StorageReference ref2 = storageReference.child(FB_Storage_Path + System.currentTimeMillis() + "." + getImageExt(imguri2));
 
                     //Add file to reference
-
                     ref.putFile(imguri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -110,7 +127,7 @@ public class MainFragment extends Fragment {
                             dialog.dismiss();
                             //Display success toast msg
                             Toast.makeText(getContext(), "Image uploaded", Toast.LENGTH_SHORT).show();
-                            ImageUpload imageUpload = new ImageUpload(editText.getText().toString(), taskSnapshot.getDownloadUrl().toString());
+                            ImageUpload imageUpload = new ImageUpload(editText.getText().toString(), taskSnapshot.getDownloadUrl().toString(), ref2.getDownloadUrl().toString());
 
                             //Save image info in to firebase database
                             String uploadId = databaseReference.push().getKey();
@@ -165,10 +182,24 @@ public class MainFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == Request_Code && resultCode == RESULT_OK && data != null && data.getData() != null) {
             imguri = data.getData();
+            listUri.add(imguri);
 
             try {
                 Bitmap bm = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), imguri);
                 imageView.setImageBitmap(bm);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        if (requestCode == Request_Code2 && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            imguri2 = data.getData();
+            listUri.add(imguri);
+
+            try {
+                Bitmap bm = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), imguri2);
+                imageView2.setImageBitmap(bm);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             } catch (IOException e) {
