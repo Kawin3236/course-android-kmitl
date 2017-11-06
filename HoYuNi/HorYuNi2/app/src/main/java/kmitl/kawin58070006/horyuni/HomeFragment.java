@@ -31,6 +31,7 @@ public class HomeFragment extends Fragment {
     private ImageListAdapter adapter;
     private ProgressDialog progressDialog;
     private ImageView addPost;
+    private Detail detail;
 
 
     public HomeFragment() {
@@ -75,9 +76,10 @@ public class HomeFragment extends Fragment {
 
                 //Init adapter
                 Collections.reverse(imgList);
-                adapter = new ImageListAdapter(getActivity(), R.layout.image_item, imgList);
+                adapter = new ImageListAdapter(getActivity(), R.layout.image_item, imgList, getActivity());
                 //Set adapter for listview
                 lv.setAdapter(adapter);
+
             }
 
             @Override
@@ -86,6 +88,7 @@ public class HomeFragment extends Fragment {
                 progressDialog.dismiss();
             }
         });
+
 
         addPost = rootView.findViewById(R.id.addPost);
         addPost.setOnClickListener(new View.OnClickListener() {
@@ -98,7 +101,13 @@ public class HomeFragment extends Fragment {
             }
         });
 
+
+
         return rootView;
+    }
+
+    public void setDetail(Detail detail){
+        this.detail = detail;
     }
 
 }
