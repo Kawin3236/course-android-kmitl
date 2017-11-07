@@ -3,10 +3,14 @@ package kmitl.kawin58070006.horyuni;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 
 /**
@@ -14,6 +18,8 @@ import android.widget.TextView;
  */
 public class DetailFragment extends Fragment {
     private TextView name;
+    private ImageView imageView1;
+    private ImageView imageView2;
     private static Detail detail;
 
 
@@ -38,7 +44,20 @@ public class DetailFragment extends Fragment {
         name = rootView.findViewById(R.id.textnameDetail);
         name.setText(detail.getName());
 
+        imageView1 = rootView.findViewById(R.id.imageDetail1);
+        Glide.with(getActivity()).load(detail.getImg().getUrl()).into(imageView1);
+        imageView1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
+                builder.setMessage("this is image");
+                builder.create();
+                builder.show();
+            }
+        });
 
+        imageView2 = rootView.findViewById(R.id.imageDetail2);
+        Glide.with(getActivity()).load(detail.getImg().getUrl2()).into(imageView2);
         return rootView;
 
 

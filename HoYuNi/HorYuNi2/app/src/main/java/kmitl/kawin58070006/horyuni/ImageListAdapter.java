@@ -54,7 +54,7 @@ public class ImageListAdapter extends ArrayAdapter<ImageUpload> {
             @Override
             public void onClick(View v) {
 
-                Detail detail = new Detail(listImage.get(position).getName());
+                Detail detail = new Detail(listImage.get(position).getName(), listImage.get(position));
                 HomeFragment.newInstance().setDetail(detail);
                 tvName2.setText(detail.getName());
 
