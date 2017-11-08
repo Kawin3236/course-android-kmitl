@@ -16,9 +16,23 @@ class MessageInfo {
     @ColumnInfo(name = "TIME")
     private String time;
 
+    @ColumnInfo(name = "Data")
+    private String data;
+
+    @ColumnInfo(name = "Money")
+    private String money;
+
+    public MessageInfo(String data, String money) {
+        this.data = data;
+        this.money = money;
+    }
+    public MessageInfo() {
+
+    }
+
     @Override
     public String toString() {
-        return String.format("%s :: %s", text, time);
+        return String.format("%s :: %s", data, money);
     }
 
     public int getId() {
@@ -47,5 +61,21 @@ class MessageInfo {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
+
+    public String getMoney() {
+        return money;
+    }
+
+    public void setMoney(String money) {
+        this.money = money;
     }
 }
