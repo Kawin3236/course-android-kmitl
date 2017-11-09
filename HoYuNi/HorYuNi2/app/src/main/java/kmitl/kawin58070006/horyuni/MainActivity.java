@@ -6,6 +6,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
@@ -19,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView imageView;
     private EditText editText;
     private Uri imguri;
-
+    private Button btnSearch;
 
     public static final String FB_Storage_Path = "image/";
     public static final String FB_Database_Path = "image";
@@ -30,6 +32,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initialFragment();
+
+        btnSearch = findViewById(R.id.btnSearch);
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getSupportFragmentManager().beginTransaction()
+                        .add(R.id.fragmentContainer, SearchFragment.newInstance())
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
     }
 
     private void initialFragment(){
@@ -62,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
         }
         return true;
     }
+
 
 
 

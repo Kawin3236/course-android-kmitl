@@ -34,6 +34,7 @@ public class HomeFragment extends Fragment {
     private Detail detail;
 
 
+
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -52,6 +53,8 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
+
+
         imgList = new ArrayList<>();
         lv = (ListView) rootView.findViewById(R.id.listViewImage);
         //Show progress dialog during list image loading
@@ -100,6 +103,8 @@ public class HomeFragment extends Fragment {
                         .commit();
             }
         });
+
+
 
 
 

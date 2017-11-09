@@ -8,6 +8,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="kmitl.kawin58070006.horyuni.MainActivity"
     android:orientation="vertical">
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="ค้นหา"
+        android:id="@+id/btnSearch"
+        android:background="#d9d3d7"/>
     <FrameLayout
         android:id="@+id/fragmentContainer"
         android:layout_width="match_parent"

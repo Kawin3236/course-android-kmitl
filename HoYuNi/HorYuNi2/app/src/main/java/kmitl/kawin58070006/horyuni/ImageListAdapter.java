@@ -46,26 +46,27 @@ public class ImageListAdapter extends ArrayAdapter<ImageUpload> {
         final TextView tvName2 = (TextView) v.findViewById(R.id.tvImageName2);
         ImageView img = (ImageView) v.findViewById(R.id.imgView);
 
-        tvName.setText(listImage.get(position).getName());
-        Glide.with(context).load(listImage.get(position).getUrl2()).into(img);
 
-        Button btnDetail = v.findViewById(R.id.btn_detail);
-        btnDetail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            tvName.setText(listImage.get(position).getName());
+            Glide.with(context).load(listImage.get(position).getUrl6()).into(img);
 
-                Detail detail = new Detail(listImage.get(position).getName(), listImage.get(position));
-                HomeFragment.newInstance().setDetail(detail);
-                tvName2.setText(detail.getName());
+            Button btnDetail = v.findViewById(R.id.btn_detail);
+            btnDetail.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-                // go to fragment
-                fragmentActivity.getSupportFragmentManager().beginTransaction()
-                        .add(R.id.fragmentContainer, DetailFragment.newInstance(detail))
-                        .addToBackStack(null)
-                        .commit();
-            }
-        });
+                    Detail detail = new Detail(listImage.get(position).getName(), listImage.get(position), listImage.get(position).getZone(), listImage.get(position).getMoreDetail());
+                    HomeFragment.newInstance().setDetail(detail);
 
+                    tvName2.setText(detail.getMoreDetail());
+
+                    // go to fragment
+                    fragmentActivity.getSupportFragmentManager().beginTransaction()
+                            .add(R.id.fragmentContainer, DetailFragment.newInstance(detail))
+                            .addToBackStack(null)
+                            .commit();
+                }
+            });
 
 
         return v;

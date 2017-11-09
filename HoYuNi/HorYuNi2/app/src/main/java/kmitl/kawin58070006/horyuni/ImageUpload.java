@@ -7,6 +7,9 @@ package kmitl.kawin58070006.horyuni;
 public class ImageUpload {
 
     public String name;
+    private ImageUpload img;
+    private String zone;
+    private String moreDetail;
     public String url;
     public String url2;
     public String url3;
@@ -29,6 +32,52 @@ public class ImageUpload {
         this.name = name;
         this.url = url;
         this.url2 = url2;
+    }
+
+    public ImageUpload(String name, String url, String url2, String url3, String url4, String url5, String url6) {
+        this.name = name;
+        this.url = url;
+        this.url2 = url2;
+        this.url3 = url3;
+        this.url4 = url4;
+        this.url5 = url5;
+        this.url6 = url6;
+    }
+
+    public ImageUpload(String name, String zone, String moreDetail, String url, String url2, String url3, String url4, String url5, String url6) {
+        this.name = name;
+        this.zone = zone;
+        this.moreDetail = moreDetail;
+        this.url = url;
+        this.url2 = url2;
+        this.url3 = url3;
+        this.url4 = url4;
+        this.url5 = url5;
+        this.url6 = url6;
+    }
+
+    public ImageUpload getImg() {
+        return img;
+    }
+
+    public void setImg(ImageUpload img) {
+        this.img = img;
+    }
+
+    public String getZone() {
+        return zone;
+    }
+
+    public void setZone(String zone) {
+        this.zone = zone;
+    }
+
+    public String getMoreDetail() {
+        return moreDetail;
+    }
+
+    public void setMoreDetail(String moreDetail) {
+        this.moreDetail = moreDetail;
     }
 
     public ImageUpload(String url2) {

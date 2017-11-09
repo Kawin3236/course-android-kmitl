@@ -18,8 +18,14 @@ import com.bumptech.glide.Glide;
  */
 public class DetailFragment extends Fragment {
     private TextView name;
+    private TextView nameZone;
+    private TextView moreDetail;
     private ImageView imageView1;
     private ImageView imageView2;
+    private ImageView imageView3;
+    private ImageView imageView4;
+    private ImageView imageView5;
+    private ImageView imageView6;
     private static Detail detail;
 
 
@@ -43,9 +49,13 @@ public class DetailFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
         name = rootView.findViewById(R.id.textnameDetail);
         name.setText(detail.getName());
+        nameZone = rootView.findViewById(R.id.txtDZone);
+        nameZone.setText(detail.getZone());
+        moreDetail = rootView.findViewById(R.id.textMoreDetail);
+        moreDetail.setText(detail.getMoreDetail());
 
         imageView1 = rootView.findViewById(R.id.imageDetail1);
-        Glide.with(getActivity()).load(detail.getImg().getUrl()).into(imageView1);
+        Glide.with(getActivity()).load(detail.getImg().getUrl6()).into(imageView1);
         imageView1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,7 +67,15 @@ public class DetailFragment extends Fragment {
         });
 
         imageView2 = rootView.findViewById(R.id.imageDetail2);
-        Glide.with(getActivity()).load(detail.getImg().getUrl2()).into(imageView2);
+        Glide.with(getActivity()).load(detail.getImg().getUrl5()).into(imageView2);
+        imageView3 = rootView.findViewById(R.id.imageDetail3);
+        Glide.with(getActivity()).load(detail.getImg().getUrl4()).into(imageView3);
+        imageView4 = rootView.findViewById(R.id.imageDetail4);
+        Glide.with(getActivity()).load(detail.getImg().getUrl3()).into(imageView4);
+        imageView5 = rootView.findViewById(R.id.imageDetail5);
+        Glide.with(getActivity()).load(detail.getImg().getUrl2()).into(imageView5);
+        imageView6 = rootView.findViewById(R.id.imageDetail6);
+        Glide.with(getActivity()).load(detail.getImg().getUrl()).into(imageView6);
         return rootView;
 
 
