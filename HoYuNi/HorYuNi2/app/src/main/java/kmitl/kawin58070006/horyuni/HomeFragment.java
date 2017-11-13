@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 
@@ -32,6 +33,7 @@ public class HomeFragment extends Fragment {
     private ProgressDialog progressDialog;
     private ImageView addPost;
     private Detail detail;
+    private Button btnSearch;
 
 
 
@@ -105,6 +107,16 @@ public class HomeFragment extends Fragment {
         });
 
 
+        btnSearch = rootView.findViewById(R.id.btnSearch);
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .add(R.id.fragmentContainer, SearchFragment.newInstance())
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
 
 
 

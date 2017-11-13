@@ -60,19 +60,22 @@
             android:id="@+id/imageDetail1"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:scaleType="fitXY"/>
 
         <ImageView
             android:id="@+id/imageDetail2"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:scaleType="fitXY"/>
 
         <ImageView
             android:id="@+id/imageDetail3"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:scaleType="fitXY"/>
 
     </LinearLayout>
 
@@ -86,19 +89,22 @@
             android:id="@+id/imageDetail4"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:scaleType="fitXY"/>
 
         <ImageView
             android:id="@+id/imageDetail5"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:scaleType="fitXY"/>
 
         <ImageView
             android:id="@+id/imageDetail6"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:scaleType="fitXY"/>
 
     </LinearLayout>
 
