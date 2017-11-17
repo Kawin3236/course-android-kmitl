@@ -32,6 +32,6 @@
         android:id="@+id/btnClearList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Clear List"
+        android:text="CLEAR LIST"
         />
 </LinearLayout>

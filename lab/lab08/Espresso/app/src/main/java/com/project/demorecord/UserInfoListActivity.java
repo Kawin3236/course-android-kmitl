@@ -56,7 +56,8 @@ public class UserInfoListActivity extends AppCompatActivity {
     @SuppressLint("WrongConstant")
     @OnClick(R.id.btnClearList)
     public void clearList() {
-        preference.remove();
+        userInfoList.getUserInfoList().clear();
+        preference.save(UserInfoListActivity.EXTTRA_LIST, userInfoList);
         Intent i = getBaseContext().getPackageManager()
                 .getLaunchIntentForPackage(getBaseContext().getPackageName());
         i.addFlags(Intent.EXTRA_DOCK_STATE_CAR);

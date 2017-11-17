@@ -11,6 +11,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.Espresso.pressBack;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static android.support.test.espresso.action.ViewActions.replaceText;
@@ -57,83 +58,85 @@ public class MainActivityTest {
 
     @Test
     public void test3() {
-        SystemClock.sleep(1000);
-
         goToList();
-        SystemClock.sleep(1000);
-
         onView(withText("Not Found")).check(matches(isDisplayed()));
     }
 
 
     @Test
     public void test4() {
-        SystemClock.sleep(1000);
+
         setName("Ying");
-        SystemClock.sleep(1000);
         add();
-        SystemClock.sleep(1000);
         onView(withText("Please Enter user info")).check(matches(isDisplayed()));
-        SystemClock.sleep(1000);
         onView(allOf(withId(android.R.id.button1), withText("OK"))).perform(click());
     }
 
 
     @Test
     public void test5() {
-        SystemClock.sleep(1000);
+        clearList();
         setName("Ying");
-        SystemClock.sleep(1000);
         setAge("20");
-        SystemClock.sleep(1000);
         add();
-        SystemClock.sleep(1000);
         goToList();
-        SystemClock.sleep(1000);
         onView(withRecyclerView(R.id.list).atPositionOnView(0, R.id.textName)).check(matches(withText("Ying")));
+        onView(withRecyclerView(R.id.list).atPositionOnView(0, R.id.textAge)).check(matches(withText("20")));
     }
 
 
     @Test
     public void test6() {
-        SystemClock.sleep(1000);
-        setName("Ladarat");
-        SystemClock.sleep(1000);
-        setAge("20");
-        SystemClock.sleep(1000);
+        clearList();
+        setName("Kawin");
+        setAge("10");
         add();
-        SystemClock.sleep(1000);
+        setName("Ladarat");
+        setAge("20");
+        add();
         goToList();
-        SystemClock.sleep(1000);
         onView(withRecyclerView(R.id.list).atPositionOnView(1, R.id.textName)).check(matches(withText("Ladarat")));
+        onView(withRecyclerView(R.id.list).atPositionOnView(1, R.id.textAge)).check(matches(withText("20")));
     }
 
 
     @Test
     public void test7() {
-        SystemClock.sleep(1000);
-        setName("Somkait");
-        SystemClock.sleep(1000);
-        setAge("80");
-        SystemClock.sleep(1000);
+        clearList();
+        setName("Kawin");
+        setAge("10");
         add();
-        SystemClock.sleep(1000);
+        setName("Kawin");
+        setAge("10");
+        add();
+        setName("Somkait");
+        setAge("80");
+        add();
         goToList();
-        SystemClock.sleep(1000);
         onView(withRecyclerView(R.id.list).atPositionOnView(2, R.id.textName)).check(matches(withText("Somkait")));
+        onView(withRecyclerView(R.id.list).atPositionOnView(2, R.id.textAge)).check(matches(withText("80")));
     }
 
 
     public void test8() {
-        SystemClock.sleep(1000);
+        clearList();
+        setName("Kawin");
+        setAge("10");
+        add();
+        setName("Kawin");
+        setAge("10");
+        add();
+        setName("Kawin");
+        setAge("10");
+        add();
+        setName("Somkait");
+        setAge("80");
         setName("Prayoch");
-        SystemClock.sleep(1000);
         setAge("60");
         add();
-        SystemClock.sleep(1000);
         goToList();
-        SystemClock.sleep(1000);
         onView(withRecyclerView(R.id.list).atPositionOnView(3, R.id.textName)).check(matches(withText("Prayoch")));
+        onView(withRecyclerView(R.id.list).atPositionOnView(3, R.id.textAge)).check(matches(withText("60")));
     }
 
     public void add() {
@@ -142,6 +145,11 @@ public class MainActivityTest {
 
     public void goToList() {
         onView(allOf(withId(R.id.buttonGotoList), withText("GO TO LIST"))).perform(click());
+    }
+
+    public void clearList() {
+        goToList();
+        onView(allOf(withId(R.id.btnClearList), withText("CLEAR LIST"))).perform(click());
     }
 
     public void setName(String name) {
