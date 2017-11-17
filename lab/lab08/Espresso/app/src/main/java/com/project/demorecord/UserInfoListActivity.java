@@ -1,5 +1,6 @@
 package com.project.demorecord;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -52,6 +53,7 @@ public class UserInfoListActivity extends AppCompatActivity {
         }
     }
 
+    @SuppressLint("WrongConstant")
     @OnClick(R.id.btnClearList)
     public void clearList() {
         preference.remove();
@@ -63,6 +65,8 @@ public class UserInfoListActivity extends AppCompatActivity {
 
     public void displaySuggestsList(List<UserInfo> suggestsList) {
         if (suggestsList.size() <= 0) {
+            userInfoList = new UserInfoList();
+            userInfoList.setUserInfoList(suggestsList);
             textNotFound.setVisibility(View.VISIBLE);
             list.setVisibility(View.GONE);
         } else {

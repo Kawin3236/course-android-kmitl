@@ -62,6 +62,7 @@ public class MainActivityTest {
         goToList();
         SystemClock.sleep(1000);
 
+        onView(withText("Not Found")).check(matches(isDisplayed()));
     }
 
 
