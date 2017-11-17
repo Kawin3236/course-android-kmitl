@@ -58,9 +58,10 @@ public class MainActivityTest {
     @Test
     public void test3() {
         SystemClock.sleep(1000);
+
         goToList();
         SystemClock.sleep(1000);
-        onView(withText("Not Found")).check(matches(isDisplayed()));
+
     }
 
 
