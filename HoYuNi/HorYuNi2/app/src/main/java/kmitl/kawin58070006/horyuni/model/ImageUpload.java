@@ -1,4 +1,4 @@
-package kmitl.kawin58070006.horyuni;
+package kmitl.kawin58070006.horyuni.model;
 
 /**
  * Created by Administrator on 1/11/2560.
@@ -19,29 +19,49 @@ public class ImageUpload {
     public String url7;
     public String url8;
 
-
-    public String getName() {
-        return name;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public ImageUpload(String name, String url, String url2) {
+    public ImageUpload(String name, String zone, String moreDetail, String url) {
         this.name = name;
+        this.zone = zone;
+        this.moreDetail = moreDetail;
+        this.url = url;
+    }
+    public ImageUpload(String name, String zone, String moreDetail, String url, String url2) {
+        this.name = name;
+        this.zone = zone;
+        this.moreDetail = moreDetail;
         this.url = url;
         this.url2 = url2;
     }
 
-    public ImageUpload(String name, String url, String url2, String url3, String url4, String url5, String url6) {
+    public ImageUpload(String name, String zone, String moreDetail, String url, String url2, String url3) {
         this.name = name;
+        this.zone = zone;
+        this.moreDetail = moreDetail;
+        this.url = url;
+        this.url2 = url2;
+        this.url3 = url3;
+    }
+
+    public ImageUpload(String name, String zone, String moreDetail, String url, String url2, String url3, String url4) {
+        this.name = name;
+        this.zone = zone;
+        this.moreDetail = moreDetail;
+        this.url = url;
+        this.url2 = url2;
+        this.url3 = url3;
+        this.url4 = url4;
+    }
+
+    public ImageUpload(String name, String zone, String moreDetail, String url, String url2, String url3, String url4, String url5) {
+        this.name = name;
+        this.zone = zone;
+        this.moreDetail = moreDetail;
         this.url = url;
         this.url2 = url2;
         this.url3 = url3;
         this.url4 = url4;
         this.url5 = url5;
-        this.url6 = url6;
+
     }
 
     public ImageUpload(String name, String zone, String moreDetail, String url, String url2, String url3, String url4, String url5, String url6) {
@@ -55,6 +75,15 @@ public class ImageUpload {
         this.url5 = url5;
         this.url6 = url6;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
 
     public ImageUpload getImg() {
         return img;
@@ -148,7 +177,8 @@ public class ImageUpload {
         this.url8 = url8;
     }
 
-    public ImageUpload(){}
+    public ImageUpload() {
+    }
 
 
 }

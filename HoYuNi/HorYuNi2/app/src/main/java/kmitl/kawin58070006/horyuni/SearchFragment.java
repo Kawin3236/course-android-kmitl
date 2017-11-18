@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -29,8 +31,18 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
     private ImageView zoneRNP;
     private ImageView zonePapaMama;
     private ImageView zoneKS;
+    private TextView numK1;
+    private TextView numK2;
+    private TextView numK3;
+    private TextView numWP;
+    private TextView numJL;
+    private TextView numHM;
+    private TextView numRNP;
+    private TextView numPapaMama;
+    private TextView numKS;
+
+
     private DatabaseReference mDatabaseRef;
-    private int num1 = 0;
 
 
     public SearchFragment() {
@@ -58,26 +70,27 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
         zoneRNP = rootView.findViewById(R.id.ZoneRNP);
         zonePapaMama = rootView.findViewById(R.id.ZonePapaMama);
         zoneKS = rootView.findViewById(R.id.ZoneKS);
+
+        numK1 = rootView.findViewById(R.id.numK1);
+        numK2 = rootView.findViewById(R.id.numK2);
+        numK3 = rootView.findViewById(R.id.numK3);
+        numWP = rootView.findViewById(R.id.numWP);
+        numJL = rootView.findViewById(R.id.numJL);
+        numHM = rootView.findViewById(R.id.numHM);
+        numRNP = rootView.findViewById(R.id.numRNP);
+        numPapaMama = rootView.findViewById(R.id.numPapaMama);
+        numKS = rootView.findViewById(R.id.numKS);
+
         mDatabaseRef = FirebaseDatabase.getInstance().getReference(MainActivity.FB_Database_Path);
-
-        mDatabaseRef.orderByChild("name").equalTo("หอหีเยดมัย").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot data : dataSnapshot.getChildren()){
-                    num1++;
-                    //zoneK1.setText(String.valueOf(num1));
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                System.out.println(":::::::1111111");
-            }
-        });
-
-
-
-
+        countZone("เกกี1", numK1);
+        countZone("เกกี2", numK2);
+        countZone("เกกี3", numK3);
+        countZone("Workpoint", numWP);
+        countZone("เจ๊เล๊ง", numJL);
+        countZone("ซอยหอใหม่", numHM);
+        countZone("RNP", numRNP);
+        countZone("ปาป๊ามาม๊า", numPapaMama);
+        countZone("กลางสวน", numKS);
 
         zoneK1.setOnClickListener(this);
         zoneK2.setOnClickListener(this);
@@ -89,42 +102,57 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
         zonePapaMama.setOnClickListener(this);
         zoneKS.setOnClickListener(this);
 
-
-
         return rootView;
+    }
+
+    private void countZone(String zone, final TextView numZone) {
+        mDatabaseRef.orderByChild("zone").equalTo(zone).addValueEventListener(new ValueEventListener() {
+            int num = 0;
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
+                    num++;
+                    numZone.setText(String.valueOf(num));
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println(":::::::1111111");
+            }
+        });
     }
 
     @Override
     public void onClick(View v) {
 
-        if(zoneK1.getId() == v.getId()){
-            getActivity().getSupportFragmentManager().beginTransaction().add(R.id.fragmentContainer, DetailSearchFragment.newInstance("เกกี1")).addToBackStack(null).commit();
+        if (zoneK1.getId() == v.getId()) {
+            goToDetail("เกกี1", numK1);
+        } else if (zoneK2.getId() == v.getId()) {
+            goToDetail("เกกี่2", numK2);
+        } else if (zoneK3.getId() == v.getId()) {
+            goToDetail("เกกี3", numK3);
+        } else if (zoneWP.getId() == v.getId()) {
+            goToDetail("Workpoint", numWP);
+        } else if (zoneJL.getId() == v.getId()) {
+            goToDetail("เจ๊เล๊ง", numJL);
+        } else if (zoneHM.getId() == v.getId()) {
+            goToDetail("ซอยหอใหม่", numHM);
+        } else if (zoneRNP.getId() == v.getId()) {
+            goToDetail("RNP", numRNP);
+        } else if (zonePapaMama.getId() == v.getId()) {
+            goToDetail("ปาป๊ามาม๊า", numPapaMama);
+        } else if (zoneKS.getId() == v.getId()) {
+            goToDetail("กลางสวน", numKS);
         }
-        else if(zoneK2.getId() == v.getId()){
-            getActivity().getSupportFragmentManager().beginTransaction().add(R.id.fragmentContainer, DetailSearchFragment.newInstance("หอหีเยดมัย")).addToBackStack(null).commit();
-        }
-        else if(zoneK3.getId() == v.getId()){
-            getActivity().getSupportFragmentManager().beginTransaction().add(R.id.fragmentContainer, DetailSearchFragment.newInstance("")).addToBackStack(null).commit();
-        }
-        else if(zoneWP.getId() == v.getId()){
-            getActivity().getSupportFragmentManager().beginTransaction().add(R.id.fragmentContainer, DetailSearchFragment.newInstance("")).addToBackStack(null).commit();
-        }
-        else if(zoneJL.getId() == v.getId()){
-            getActivity().getSupportFragmentManager().beginTransaction().add(R.id.fragmentContainer, DetailSearchFragment.newInstance("")).addToBackStack(null).commit();
-        }
-        else if(zoneHM.getId() == v.getId()){
-            getActivity().getSupportFragmentManager().beginTransaction().add(R.id.fragmentContainer, DetailSearchFragment.newInstance("")).addToBackStack(null).commit();
-        }
-        else if(zoneRNP.getId() == v.getId()){
-            getActivity().getSupportFragmentManager().beginTransaction().add(R.id.fragmentContainer, DetailSearchFragment.newInstance("")).addToBackStack(null).commit();
-        }
-        else if(zonePapaMama.getId() == v.getId()){
-            getActivity().getSupportFragmentManager().beginTransaction().add(R.id.fragmentContainer, DetailSearchFragment.newInstance("")).addToBackStack(null).commit();
-        }
-        else if(zoneKS.getId() == v.getId()){
-            getActivity().getSupportFragmentManager().beginTransaction().add(R.id.fragmentContainer, DetailSearchFragment.newInstance("")).addToBackStack(null).commit();
-        }
+    }
 
+    private void goToDetail(String zone, TextView numZone) {
+        if (Integer.parseInt(numZone.getText().toString()) == 0) {
+            Toast.makeText(getContext(), zone + "ไม่มีหอว่าง", Toast.LENGTH_SHORT).show();
+        } else
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, DetailSearchFragment.newInstance(zone)).addToBackStack(null).commit();
     }
 
 

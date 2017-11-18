@@ -20,6 +20,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import kmitl.kawin58070006.horyuni.adapter.ImageListAdapter;
+import kmitl.kawin58070006.horyuni.model.Detail;
+import kmitl.kawin58070006.horyuni.model.ImageUpload;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -64,8 +68,7 @@ public class DetailSearchFragment extends Fragment {
         progressDialog.show();
 
         mDatabaseRef = FirebaseDatabase.getInstance().getReference(MainActivity.FB_Database_Path);
-
-        mDatabaseRef.orderByChild("name").equalTo(nameZone).addValueEventListener(new ValueEventListener() {
+        mDatabaseRef.orderByChild("zone").equalTo(nameZone).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 progressDialog.dismiss();
@@ -76,14 +79,11 @@ public class DetailSearchFragment extends Fragment {
                     ImageUpload img = snapshot.getValue(ImageUpload.class);
                     imgList.add(img);
                 }
-
-
                 //Init adapter
                 Collections.reverse(imgList);
                 adapter = new ImageListAdapter(getActivity(), R.layout.image_item, imgList, getActivity());
                 //Set adapter for listview
                 lv.setAdapter(adapter);
-
             }
 
             @Override

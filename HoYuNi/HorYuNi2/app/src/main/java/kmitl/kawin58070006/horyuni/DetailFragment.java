@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import kmitl.kawin58070006.horyuni.model.Detail;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -55,7 +57,7 @@ public class DetailFragment extends Fragment {
         moreDetail.setText(detail.getMoreDetail());
 
         imageView1 = rootView.findViewById(R.id.imageDetail1);
-        Glide.with(getActivity()).load(detail.getImg().getUrl6()).into(imageView1);
+        Glide.with(getActivity()).load(detail.getImg().getUrl()).into(imageView1);
         imageView1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -67,15 +69,15 @@ public class DetailFragment extends Fragment {
         });
 
         imageView2 = rootView.findViewById(R.id.imageDetail2);
-        Glide.with(getActivity()).load(detail.getImg().getUrl5()).into(imageView2);
+        Glide.with(getActivity()).load(detail.getImg().getUrl2()).into(imageView2);
         imageView3 = rootView.findViewById(R.id.imageDetail3);
-        Glide.with(getActivity()).load(detail.getImg().getUrl4()).into(imageView3);
+        Glide.with(getActivity()).load(detail.getImg().getUrl3()).into(imageView3);
         imageView4 = rootView.findViewById(R.id.imageDetail4);
-        Glide.with(getActivity()).load(detail.getImg().getUrl3()).into(imageView4);
+        Glide.with(getActivity()).load(detail.getImg().getUrl4()).into(imageView4);
         imageView5 = rootView.findViewById(R.id.imageDetail5);
-        Glide.with(getActivity()).load(detail.getImg().getUrl2()).into(imageView5);
+        Glide.with(getActivity()).load(detail.getImg().getUrl5()).into(imageView5);
         imageView6 = rootView.findViewById(R.id.imageDetail6);
-        Glide.with(getActivity()).load(detail.getImg().getUrl()).into(imageView6);
+        Glide.with(getActivity()).load(detail.getImg().getUrl6()).into(imageView6);
         return rootView;
 
 

@@ -44,10 +44,10 @@
                     android:text="(" />
 
                 <TextView
+                    android:id="@+id/numK1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0"
-
                     android:textColor="#ed0404" />
 
                 <TextView
@@ -89,6 +89,7 @@
                     android:text="(" />
 
                 <TextView
+                    android:id="@+id/numK2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0"
@@ -133,6 +134,7 @@
                     android:text="(" />
 
                 <TextView
+                    android:id="@+id/numK3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0"
@@ -183,6 +185,7 @@
                     android:text="(" />
 
                 <TextView
+                    android:id="@+id/numWP"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0"
@@ -227,6 +230,7 @@
                     android:text="(" />
 
                 <TextView
+                    android:id="@+id/numJL"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0"
@@ -271,6 +275,7 @@
                     android:text="(" />
 
                 <TextView
+                    android:id="@+id/numHM"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0"
@@ -322,6 +327,7 @@
                     android:text="(" />
 
                 <TextView
+                    android:id="@+id/numRNP"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0"
@@ -366,6 +372,7 @@
                     android:text="(" />
 
                 <TextView
+                    android:id="@+id/numPapaMama"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0"
@@ -410,6 +417,7 @@
                     android:text="(" />
 
                 <TextView
+                    android:id="@+id/numKS"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0"

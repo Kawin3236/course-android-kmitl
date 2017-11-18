@@ -30,22 +30,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initialFragment();
-
-
     }
-
     private void initialFragment(){
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
                 .add(R.id.fragmentContainer, HomeFragment.newInstance())
                 .commit();
     }
-
     //Menubar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
-
         return true;
     }
 
@@ -54,19 +49,12 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
         if(id == R.id.id_profile){
             // Write logic
-
             return true;
         }
         if(id == R.id.id_set){
             // Write logic
-
             return true;
         }
         return true;
     }
-
-
-
-
-
 }

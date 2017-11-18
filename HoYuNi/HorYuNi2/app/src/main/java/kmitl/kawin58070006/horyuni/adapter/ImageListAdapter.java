@@ -1,4 +1,4 @@
-package kmitl.kawin58070006.horyuni;
+package kmitl.kawin58070006.horyuni.adapter;
 
 import android.app.Activity;
 import android.support.annotation.LayoutRes;
@@ -16,6 +16,12 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 
 import java.util.List;
+
+import kmitl.kawin58070006.horyuni.DetailFragment;
+import kmitl.kawin58070006.horyuni.HomeFragment;
+import kmitl.kawin58070006.horyuni.R;
+import kmitl.kawin58070006.horyuni.model.Detail;
+import kmitl.kawin58070006.horyuni.model.ImageUpload;
 
 /**
  * Created by Administrator on 1/11/2560.
@@ -48,7 +54,8 @@ public class ImageListAdapter extends ArrayAdapter<ImageUpload> {
 
 
             tvName.setText(listImage.get(position).getName());
-            Glide.with(context).load(listImage.get(position).getUrl6()).into(img);
+
+            Glide.with(context).load(listImage.get(position).getUrl()).into(img);
 
             Button btnDetail = v.findViewById(R.id.btn_detail);
             btnDetail.setOnClickListener(new View.OnClickListener() {

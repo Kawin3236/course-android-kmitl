@@ -7,11 +7,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="kmitl.kawin58070006.horyuni.HomeFragment">
     <Button
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="48dp"
         android:text="ค้นหา"
         android:id="@+id/btnSearch"
-        android:background="#d9d3d7"
+        android:background="#efd808"
         tools:layout_constraintRight_creator="0"
         tools:layout_constraintBottom_creator="0"
         app:layout_constraintBottom_toTopOf="@+id/listViewImage"
@@ -22,8 +22,8 @@
 
     <ListView
         android:id="@+id/listViewImage"
-        android:layout_width="385dp"
-        android:layout_height="466dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginEnd="0dp"
         android:layout_marginStart="0dp"
         android:layout_marginTop="48dp"

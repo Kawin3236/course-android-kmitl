@@ -1,4 +1,4 @@
-package kmitl.kawin58070006.horyuni;
+package kmitl.kawin58070006.horyuni.model;
 
 /**
  * Created by Administrator on 6/11/2560.
